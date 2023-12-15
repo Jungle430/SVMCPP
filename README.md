@@ -84,9 +84,9 @@ $$
 
 - Binary variable solving procedure
 
-    - Solve for unconstrained extremum points, recorded as $ \alpha_{b}^{new, unc} $
+    - Solve for unconstrained extremum points, recorded as $\alpha_{b}^{new, unc}$
 
-    - Solve for constrained extremum points, recorded as $ \alpha_{b}^{new} $
+    - Solve for constrained extremum points, recorded as $\alpha_{b}^{new}$
 
 - Calculate the difference between the predicted value and the actual label
 
