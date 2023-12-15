@@ -110,6 +110,14 @@ auto dual_svm(const std::vector<std::vector<double>> &x,
   return {alpha, b};
 }
 
+/**
+ * @brief SVM, using SMO algorithm
+ * @param y Labels for each sample
+ * @param kernel_function Kernel function
+ * @param C Regularization parameter
+ * @param max_iter maximum iterations
+ * @param tol Tolerance, which controls the stop condition of the iteration
+ */
 template <typename KERNEL_FUNCTION>
 auto multi_dimensional_svm(const std::vector<std::vector<double>> &x,
                            const std::vector<double> &y,
