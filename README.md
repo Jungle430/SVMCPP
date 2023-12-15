@@ -4,9 +4,9 @@
 
 ![C++](https://img.shields.io/badge/SVM-C++-informational?style=flat-square&logo=cplusplus&logoColor=white&color=2bbc8a)
 
-$$
-Dual\ SVM\newline
-$$
+
+## Dual SVM
+
 
 $$
 min_{\alpha}\frac{1}{2}\sum_{i}\sum_{j}\alpha_{i}\alpha_{j}y_{i}y_{j}x_{i}^{T}x_{j}-\sum_{i}\alpha_{i}\newline
@@ -24,6 +24,10 @@ $$
 b=y_{i}-\sum_{j}\alpha_{j}y_{j}x_{j}^{T}x_{i}\ for\ examples\ i\ where\ \alpha_{i}\in(0,C)
 $$
 
+$$
+y_i \in \{-1,+1\} i \in [1,N]
+$$
+
 ## SMO(Sequential minimal optimization)
 
 - Turn big problems into subproblems
@@ -38,6 +42,36 @@ $$
 
 $$
 s.t.\ \ \ \ y_{a}\alpha_{a}+y_{b}\alpha_{b}=-\sum_{i\ne a, b}\alpha_{i}y_{i}\ \ \ \ \alpha_{a}, \alpha_{b}\in[0,C]
+$$
+
+- The optimization of a binary function is transformed into a monadic optimization function
+
+$$
+y_{a}\alpha_{a}+y_{b}\alpha_{b}=-\sum_{i\ne a, b}\alpha_{i}y_{i}
+$$
+
+$$
+y \in \{-1,+1\}
+$$
+
+$$
+y_{a}^2\alpha_{a}+y_{a}y_{b}\alpha_{b}=y_{a} \times -\sum_{i\ne a, b}\alpha_{i}y_{i}
+$$
+
+$$
+\zeta := -\sum_{i\ne a, b}\alpha_{i}y_{i}
+$$
+
+$$
+\alpha_{a}=y_{a}\zeta-y_{a}y_{b}\alpha_{b}
+$$
+
+- A quadratic function can find the maximum value at once!
+
+- Iterative process
+
+$$
+\alpha_{a}^{old},\alpha_{b}^{old} \rightarrow \alpha_{a}^{new},\alpha_{b}^{new}
 $$
 
 ## Gaussian kernel
