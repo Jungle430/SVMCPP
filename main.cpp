@@ -1,43 +1,45 @@
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 
-#include "SVM.h"
+#include "SVM.h"  // Include the header file where SVM functions are declared
 
-auto main() -> int {  // 生成示例数据
-  std::vector<std::vector<double>> X = {{-1, -1}, {-2, -1}, {-3, -2},
-                                        {1, 1},   {2, 1},   {3, 2}};
-  std::vector<double> y = {-1, -1, -1, 1, 1, 1};
+auto main() -> int {
+  // Set a seed for random number generation
+  std::srand(static_cast<unsigned>(std::time(nullptr)));
 
-  // 设置参数
-  double C = 1.0;
-  double sigma = 1.0;
+  // Generate random data
+  const std::size_t data_size = 100;
+  const std::size_t feature_size = 2;
+  std::vector<std::vector<double>> data;
+  std::vector<double> labels;
 
-  // 调用支持向量机算法
-  auto result = dual_svm(X, y, C, sigma);
+  for (std::size_t i = 0; i < data_size; ++i) {
+    std::vector<double> point;
+    point.push_back(static_cast<double>(std::rand()) / RAND_MAX);
+    point.push_back(static_cast<double>(std::rand()) / RAND_MAX);
+    data.push_back(point);
 
-  // 提取 alpha 和 b
-  std::vector<double> alpha = result.first;
-  double b = result.second;
-
-  // 打印结果
-  std::cout << "Alpha: ";
-  for (const auto& a : alpha) {
-    std::cout << a << " ";
+    // Assign labels randomly (1 or -1)
+    labels.push_back((std::rand() % 2 == 0) ? 1.0 : -1.0);
   }
-  std::cout << "\n";
 
-  std::cout << "b: " << b << "\n";
+  // Define the Gaussian kernel
+  SVM::gaussian_kernel kernel;
 
-  // 进行预测
-  std::vector<std::vector<double>> new_samples = {{-2, -2}, {2, 2}};
-  for (const auto& sample : new_samples) {
-    double prediction = b;
-    for (size_t i = 0; i < alpha.size(); ++i) {
-      prediction += alpha[i] * y[i] * gaussian_kernel(sample, X[i], sigma);
-    }
+  // Call the dual_svm function to perform SVM calculations
+  auto result = dual_svm(data, labels, kernel);
 
-    std::cout << "Prediction for sample (" << sample[0] << ", " << sample[1]
-              << "): " << (prediction > 0 ? 1 : -1) << "\n";
+  // Extract the support vector weights and bias
+  std::vector<double> weights = result.first;
+  double bias = result.second;
+
+  // Print the results
+  std::cout << "Support Vector Weights: ";
+  for (const auto &weight : weights) {
+    std::cout << weight << " ";
   }
+  std::cout << "\nBias: " << bias << std::endl;
 
   return 0;
 }
