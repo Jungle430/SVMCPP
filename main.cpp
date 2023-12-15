@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "SVM.h"  // Include the header file where SVM functions are declared
+#include "gaussian_kernel.h"
 
 auto main() -> int {
   // Set a seed for random number generation
@@ -25,7 +26,7 @@ auto main() -> int {
   }
 
   // Define the Gaussian kernel
-  SVM::gaussian_kernel kernel;
+  auto kernel = SVM::gaussian_kernel(SVM::GAUSSIAN_KERNEL::DEFAULT_SIGMA);
 
   // Call the dual_svm function to perform SVM calculations
   auto result = dual_svm(data, labels, kernel);
