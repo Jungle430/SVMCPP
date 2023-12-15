@@ -1,5 +1,7 @@
 # SVMCPP
 
+![](./static/SVMCPP.png)
+
 > SVM algorithm based on Gaussian kernel and dual computation
 
 ![C++](https://img.shields.io/badge/SVM-C++-informational?style=flat-square&logo=cplusplus&logoColor=white&color=2bbc8a)
@@ -72,6 +74,62 @@ $$
 
 $$
 \alpha_{a}^{old},\alpha_{b}^{old} \rightarrow \alpha_{a}^{new},\alpha_{b}^{new}
+$$
+
+- value range
+
+![value range1](./static/value%20range1.png)
+
+![value range2](./static/value%20range2.png)
+
+- Binary variable solving procedure
+
+    - Solve for unconstrained extremum points, recorded as $ \alpha_{b}^{new, unc} $
+
+    - Solve for constrained extremum points, recorded as $ \alpha_{b}^{new} $
+
+- Calculate the difference between the predicted value and the actual label
+
+$$
+g(x)=\sum_{i=1}^{N}\alpha_{i}y_{i}K(x_{i}, x)+b
+$$
+
+$$
+E_{i}=g(x_{i})-y_{i}=\sum_{j=1}^{N}\alpha_{j}y_{j}K(x_{j}, x_{i})+b-y_{i}, i=a,b
+$$
+
+- Introduce new variable quantization reduction, calculate the derivative to calculate the extreme value
+
+$$
+v_i := \sum_{j\ne a, b}^{N} \alpha_{j}y_{j}K(x_{i}, x_{j})=g(x_{i})-\sum_{j}\alpha_{j}y_{j}K(x_{i},x_{j})-b, j=a,b, i = a, b
+$$
+
+- Objective function
+
+![Objective function](./static/Objective%20function.png)
+
+- derivative
+
+![derivative](./static/derivative.png)
+
+$$
+make\ \alpha_{2}=0
+$$
+
+![output](./static/output.png)
+
+$$
+\zeta = \alpha_{1}^{old}y_{1}+\alpha_{2}^{old}y_{2}
+$$
+
+![zeta](./static/zeta.png)
+
+$$
+\eta = K_{11}+K_{22}-2K_{12}
+$$
+
+$$
+\alpha_{2}^{new,unc}=\alpha_{2}^{old}+\frac{y_{2}(E_1-E_2)}{\eta}
 $$
 
 ## Gaussian kernel
