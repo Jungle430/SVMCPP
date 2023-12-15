@@ -17,7 +17,7 @@ $$
 - Turn big problems into subproblems
 - Platt,1998
 
-- Select two elements$(\alpha_a, \alpha_b)$ in vector $\alpha$ for iterative calculation
+- Select two elements $(\alpha_a, \alpha_b)$ in vector $\alpha$ for iterative calculation
 
 $$
 min_{\alpha_{a},\alpha_{b}} \frac{1}{2}K_{aa}\alpha_{a}^{2}+\frac{1}{2}K_{bb}\alpha_{b}^{2}+\frac{1}{2}\alpha_{a}y_{a}\sum_{j\ne a}y_{j}\alpha_{j}K_{aj}+\frac{1}{2}\alpha_{b}y_{b}\sum_{j\ne b}y_{j}\alpha_{j}K_{bj}-\alpha_{a}-\alpha_{b}\newline
