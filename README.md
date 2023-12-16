@@ -162,6 +162,12 @@ $$
 K(x_i,x_j)=e^{-\frac{||x_i-x_j||^2}{2\sigma^2}}
 $$
 
+## Radial Basis Funtion(RBF) kernel
+
+$$
+K(x_i,x_j)=e^{-\gamma||x_i-x_j||^2}
+$$
+
 ## How to run it?
 
 ### download and gzip minst data set
