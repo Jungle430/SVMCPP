@@ -1,3 +1,4 @@
+#! /bin/sh
 mkdir unzip_file
 gzip -d train-images-idx3-ubyte.gz
 gzip -d train-labels-idx1-ubyte.gz
