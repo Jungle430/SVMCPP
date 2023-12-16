@@ -22,6 +22,7 @@ auto test(const std::vector<double> &alpha, double b, int number) -> double;
 auto main(int argc, char **argv) -> int {
   if (argc < 2) {
     std::cout << "SVMCPP <Forecast figure(0~9)>" << std::endl;
+    return -1;
   }
 
   int number = std::atoi(argv[1]);
