@@ -18,3 +18,11 @@ auto SVM::rbf_kernel::operator()(const std::vector<double> &x,
   }
   return std::exp(-this->gamma * distance);
 }
+
+auto SVM::rbf_kernel::setSigma(double gamma) -> void {
+  this->gamma = gamma;
+}
+
+auto SVM::rbf_kernel::getSigma() const -> double {
+  return this->gamma;
+}
