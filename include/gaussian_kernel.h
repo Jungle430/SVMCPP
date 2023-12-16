@@ -13,6 +13,8 @@ class gaussian_kernel {
   double sigma = SVM::GAUSSIAN_KERNEL::DEFAULT_SIGMA;
 
  public:
+  gaussian_kernel() = default;
+
   explicit gaussian_kernel(double sigma) : sigma(sigma){};
 
   [[nodiscard]] auto getSigma() const -> double;

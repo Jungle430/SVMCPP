@@ -5,7 +5,7 @@
 #include <vector>
 namespace SVM {
 constexpr double DEFAULT_C = 1.0;
-constexpr std::size_t DEFAULT_MAX_ITER = 100;
+constexpr std::size_t DEFAULT_MAX_ITER = 200;
 constexpr double DEFAULT_TOL = 1e-3;
 }  // namespace SVM
 
@@ -204,4 +204,35 @@ auto multi_dimensional_svm(const std::vector<std::vector<double>> &x,
     }
   }
   return {alpha, b};
+}
+
+/**
+ * @brief test SVM accuracy
+ * @param x test data
+ * @param y test label
+ * @param alpha SVM alpha
+ * @param b SVM b
+ * @param kernel_function Kernel function
+ */
+template <typename KERNEL_FUNCTION>
+auto test_svm(const std::vector<std::vector<double>> &x,
+              const std::vector<double> &y, const std::vector<double> &alpha,
+              double b, const KERNEL_FUNCTION &kernel_function) noexcept
+    -> double {
+  const auto m = x.size();
+  int correct_predictions = 0;
+
+  for (auto i = 0; i < m; i++) {
+    double prediction = b;
+
+    for (auto j = 0; j < alpha.size(); j++) {
+      prediction += alpha[j] * y[j] * kernel_function(x[j], x[i]);
+    }
+
+    if ((prediction > 0 && y[i] > 0) || (prediction < 0 && y[i] < 0)) {
+      correct_predictions++;
+    }
+  }
+
+  return static_cast<double>(correct_predictions) / static_cast<double>(m);
 }
