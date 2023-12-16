@@ -1,4 +1,4 @@
-# SVMCPP
+# SVMCPP mnist
 
 ![](./static/SVMCPP.png)
 
@@ -106,23 +106,47 @@ $$
 
 - Objective function
 
-![Objective function](./static/Objective%20function.png)
+$$
+W(\alpha_2)=\frac{1}{2}K_{11}(\zeta-\alpha_2y_2)^2+\frac{1}{2}K_{22}\alpha_2^2+y_2K_{12}(\zeta-\alpha_2y_2)\alpha_2
+$$
+
+$$
+-(\zeta-\alpha_2y_2)y_1-\alpha_2+v_1(\zeta-\alpha_2y_2)+y_2v_2\alpha_2
+$$
 
 - derivative
 
-![derivative](./static/derivative.png)
+$$
+\frac{\delta W}{\delta \alpha_2}=K_{11}\alpha_2+K_{22}\alpha_2-2K_{12}\alpha_{2}-K_{11}\zeta y_2+K_{12}\zeta y_2+y_1y_2-1-v_1y_2+y_2v_2
+$$
 
 $$
 make\ \alpha_{2}=0
 $$
 
-![output](./static/output.png)
+$$
+(K_{11}+K_{22}-2K_{12})\alpha_2=y_2(y_2-y_1+\zeta K_{11}-\zeta K_{12}+v_1-v_2)
+$$
+
+$$
+=y_2[y_2-y_1+\zeta K_{11}-\zeta K_{12}-(g(x_1)-\sum_{j=1}^2y_j\alpha_j K_{1j}-b)-(g(x_2)-\sum_{j=1}^2y_j\alpha_j K_{2j}-b)]
+$$
 
 $$
 \zeta = \alpha_{1}^{old}y_{1}+\alpha_{2}^{old}y_{2}
 $$
 
-![zeta](./static/zeta.png)
+$$
+(K_{11}+K_{22}-2K_{12})\alpha_2^{new,unc}
+$$
+
+$$
+=y_2((K_{11}+K_{22}-2K_{12})\alpha_2^{old}y_2+y_2-y_1+g(x_1)+g(x_2))
+$$
+
+$$
+=(K_{11}+K_{22}-2K_{12})\alpha_2^{old}+y_2({E_1-E_2})
+$$
 
 $$
 \eta = K_{11}+K_{22}-2K_{12}
@@ -140,10 +164,35 @@ $$
 
 ## How to run it?
 
+### download and gzip minst data set
+
+```shell
+cd mnist_data
+download.sh
+gzip.sh
+```
+
+### parse the data set, save it as csv file
+
+```shell
+cd read_file_script
+python3 read_mnist.py
+```
+
+### compile source code file
+
 ```shell
 mkdir build
 cd build
 cmake ..
 make
+```
+
+### SVM algorithm was run to get the accuracy
+
+```shell
 SVMCPP
 ```
+## Tips
+
+- When running the program, be cautious about memory usage to prevent potential crashes. It is recommended to set parameters appropriately, especially in the `read_mnist.py` file, where you can customize the number of files used for training. Failing to set these parameters may result in excessive memory consumption. Take a moment to adjust configurations based on your system specifications to ensure smooth execution.
