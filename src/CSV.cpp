@@ -31,9 +31,8 @@ auto CSV::loadImages(const std::string &filename) noexcept
   return ans;
 }
 
-auto CSV::loadLabels(const std::string &filename) noexcept
-    -> std::vector<double> {
-  auto ans = std::vector<double>();
+auto CSV::loadLabels(const std::string &filename) noexcept -> std::vector<int> {
+  auto ans = std::vector<int>();
   auto file = std::ifstream(filename);
   if (file.is_open()) {
     auto line = std::string();
@@ -42,7 +41,7 @@ auto CSV::loadLabels(const std::string &filename) noexcept
       int label = 0;
       while (ss >> label) {
       }
-      ans.emplace_back(static_cast<double>(label));
+      ans.emplace_back(label);
     }
     file.close();
   } else {
