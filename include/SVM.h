@@ -149,3 +149,33 @@ auto test_svm(const std::vector<std::vector<double>> &x,
   double accuracy = correct_predictions / static_cast<double>(m);
   return accuracy;
 }
+
+template <typename KERNEL_FUNCTION>
+auto SVM_prediction(const std::vector<std::vector<double>> &x_train,
+                    const std::vector<int> &y_train,
+                    const std::vector<double> &alpha, const double b,
+                    const KERNEL_FUNCTION &kernel_function,
+                    const std::vector<double> new_data) noexcept -> double {
+  const auto m = x_train.size();
+  double predicted = b;
+  for (auto j = 0; j < m; j++) {
+    predicted += alpha[j] * y_train[j] * kernel_function(x_train[j], new_data);
+  }
+  return predicted;
+}
+
+template <typename KERNEL_FUNCTION>
+auto SVM_prediction_number(const std::vector<std::vector<double>> &x_train,
+                           const std::vector<int> &y_train,
+                           const std::vector<double> &alpha, const double b,
+                           const KERNEL_FUNCTION &kernel_function,
+                           const std::vector<double> new_data,
+                           int number) noexcept -> double {
+  auto new_y_train = std::vector<int>(y_train.size(), 0.0);
+  const auto n = y_train.size();
+  for (auto i = 0; i < n; i++) {
+    new_y_train[i] = y_train[i] == number ? 1 : -1;
+  }
+  return SVM_prediction(x_train, new_y_train, alpha, b, kernel_function,
+                        new_data);
+}
