@@ -29,6 +29,15 @@ class rbf_kernel {
    */
   auto operator()(const std::vector<double> &x,
                   const std::vector<double> &y) const noexcept -> double;
+
+  /**
+   * @brief rbf_kernel
+   * @param x The first number
+   * @param y The second number
+   * @param sigma Calculation parameter,the default value is 1.0
+   * @return The calculation result
+   */
+  auto operator()(double x, double y) const noexcept -> double;
 };
 
 }  // namespace SVM
