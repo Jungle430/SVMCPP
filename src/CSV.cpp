@@ -49,3 +49,27 @@ auto CSV::loadLabels(const std::string &filename) noexcept -> std::vector<int> {
   }
   return ans;
 }
+
+auto CSV::writeCSV(
+    const std::string &filename,
+    const std::vector<std::pair<std::vector<double>, double>> &results) noexcept
+    -> bool {
+  std::ofstream outputFile(filename, std::ios::trunc);
+  if (!outputFile.is_open()) {
+    return false;
+  }
+  outputFile << "alpha, b" << std::endl;
+  for (const auto &result:results) {
+    outputFile << "\"";
+    for (auto i = 0; i < result.first.size(); i++) {
+      if (i==0) {
+        outputFile << result.first[i];
+      } else {
+        outputFile << ','<<result.first[i];
+      }
+    }
+    outputFile << "\"," << result.second << std::endl;
+  }
+  outputFile.close();
+  return true;
+}
