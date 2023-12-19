@@ -58,14 +58,14 @@ auto CSV::writeCSV(
   if (!outputFile.is_open()) {
     return false;
   }
-  outputFile << "alpha, b" << std::endl;
-  for (const auto &result:results) {
+  outputFile << "alpha,b" << std::endl;
+  for (const auto &result : results) {
     outputFile << "\"";
     for (auto i = 0; i < result.first.size(); i++) {
-      if (i==0) {
+      if (i == 0) {
         outputFile << result.first[i];
       } else {
-        outputFile << ','<<result.first[i];
+        outputFile << ',' << result.first[i];
       }
     }
     outputFile << "\"," << result.second << std::endl;
