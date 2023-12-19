@@ -19,7 +19,7 @@ const auto test_images_path =
     std::string("../read_file_script/test_images.csv");
 const auto test_labels_path =
     std::string("../read_file_script/test_labels.csv");
-const auto outputFile = std::string("../data_script/model_data.csv");
+const auto outputFile = std::string("../model_data.csv");
 
 auto train(int number) -> std::pair<std::vector<double>, double>;
 auto test(const std::vector<double> &alpha, double b, int number) -> double;
