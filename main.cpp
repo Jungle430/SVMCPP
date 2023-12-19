@@ -1,3 +1,4 @@
+#include <cmath>
 #include <cstdlib>
 #include <iostream>
 #include <utility>
@@ -7,6 +8,9 @@
 #include "gaussian_kernel.h"
 #include "rbf_kernel.h"
 
+constexpr auto start = 0;
+constexpr auto end = 9;
+
 const auto train_images_path =
     std::string("../read_file_script/train_images.csv");
 const auto train_labels_path =
@@ -15,25 +19,37 @@ const auto test_images_path =
     std::string("../read_file_script/test_images.csv");
 const auto test_labels_path =
     std::string("../read_file_script/test_labels.csv");
+const auto outputFile = std::string("../data_script/model_data.csv");
 
 auto train(int number) -> std::pair<std::vector<double>, double>;
 auto test(const std::vector<double> &alpha, double b, int number) -> double;
 
-auto main(int argc, char **argv) -> int {
-  if (argc < 2) {
-    std::cout << "SVMCPP <Forecast figure(0~9)>" << std::endl;
-    return -1;
+auto main() -> int {
+  auto results = std::vector<std::pair<std::vector<double>, double>>();
+  for (auto i = start; i <= end; i++) {
+    results.emplace_back(train(i));
   }
-
-  int number = std::atoi(argv[1]);
-
-  auto svmResult = train(number);
-  // for (auto &x : svmResult.first) {
-  //   std::cout << x << " ";
-  // }
-  // std::cout << std::endl;
-  auto accuracy = test(svmResult.first, svmResult.second, number);
-  std::cout << accuracy << std::endl;
+  CSV::writeCSV(outputFile, results);
+  auto test_images = CSV::loadImages(test_images_path);
+  auto test_labels = CSV::loadLabels(test_labels_path);
+  auto rbfKernel = SVM::rbf_kernel();
+  for (auto k = 0; k < test_images.size(); k++) {
+    auto ans = std::vector<double>();
+    for (auto i = start; i <= end; i++) {
+      ans.emplace_back(SVM_prediction_number(
+          test_images, test_labels, results[i].first, results[i].second,
+          rbfKernel, test_images[k], i));
+    }
+    auto index = 0;
+    auto min_ans = ans[0];
+    for (auto h = 0; h < ans.size(); h++) {
+      if (ans[h] > min_ans) {
+        min_ans = ans[h];
+        index = h;
+      }
+    }
+    // std::cout << index << std::endl;
+  }
   return 0;
 }
 
