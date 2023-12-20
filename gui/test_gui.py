@@ -15,8 +15,8 @@ base_image_path = "../read_file_script/test_images/mnist_image_"
 test_images_path: str = "../mnist_data/unzip_file/t10k-images-idx3-ubyte"
 test_labels_path: str = "../mnist_data/unzip_file/t10k-labels-idx1-ubyte"
 
-train_images: np.ndarray = idx2numpy.convert_from_file(test_images_path)
-train_labels: np.ndarray = idx2numpy.convert_from_file(test_labels_path)
+test_images: np.ndarray = idx2numpy.convert_from_file(test_images_path)
+test_labels: np.ndarray = idx2numpy.convert_from_file(test_labels_path)
 
 
 def show(image: np.ndarray, number: int) -> None:
@@ -106,11 +106,11 @@ if __name__ == "__main__":
     image: np.ndarray = cv2.imread(
         f"{base_image_path}{sys.argv[1]}.png", cv2.IMREAD_GRAYSCALE
     )
-    train_image_matrix: np.ndarray = getTrainMatrixImages(train_images)
+    train_image_matrix: np.ndarray = getTrainMatrixImages(test_images)
     prediction_data: List[float] = [
         SVM_prediction_number(
             train_image_matrix,
-            train_labels,
+            test_labels,
             np.array(alphas[i]),
             bs[i],
             rbf_kernel,
