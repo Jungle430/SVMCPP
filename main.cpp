@@ -33,6 +33,7 @@ auto main() -> int {
   auto test_images = CSV::loadImages(test_images_path);
   auto test_labels = CSV::loadLabels(test_labels_path);
   auto rbfKernel = SVM::rbf_kernel();
+  double count = 0.0;
   for (auto k = 0; k < test_images.size(); k++) {
     auto ans = std::vector<double>();
     for (auto i = start; i <= end; i++) {
@@ -48,8 +49,14 @@ auto main() -> int {
         index = h;
       }
     }
-    // std::cout << index << std::endl;
+    if (index == test_labels[k]) {
+      count += 1;
+    }
+    std::cout << index << " " << test_labels[k] << std::endl;
   }
+  std::cout << count << std::endl;
+  std::cout << test_labels.size() << std::endl;
+  std::cout << count / static_cast<double>(test_labels.size()) << std::endl;
   return 0;
 }
 
