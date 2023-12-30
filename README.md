@@ -197,7 +197,15 @@ make
 ### SVM algorithm was run to get the accuracy
 
 ```shell
-SVMCPP <Forecast figure(0~9)>
+SVMCPP
+```
+
+### GUI and image
+```shell
+cd read_file_script
+python3 save_test_image.csv
+cd ../gui
+python3 test_gui.py <test_image_number>
 ```
 
 ## Tips
