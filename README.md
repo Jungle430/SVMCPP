@@ -208,6 +208,8 @@ cd ../gui
 python3 test_gui.py <test_image_number>
 ```
 
+![gui](./static/gui.png)
+
 ## Tips
 
 - When running the program, be cautious about memory usage to prevent potential crashes. It is recommended to set parameters appropriately, especially in the `read_mnist.py` file, where you can customize the number of files used for training. Failing to set these parameters may result in excessive memory consumption. Take a moment to adjust configurations based on your system specifications to ensure smooth execution.
